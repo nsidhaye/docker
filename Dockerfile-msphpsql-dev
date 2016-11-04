@@ -1,0 +1,59 @@
+#Download base image ubuntu 16.04
+FROM ubuntu:16.04
+
+MAINTAINER Nikhil S
+
+# Update Ubuntu Software repository
+RUN apt-get update && \
+    apt-get -y install \
+	libxml2-dev \
+	gcc	\
+	g++ \
+    autoconf \
+	curl \
+	make \
+	apt-transport-https	 \
+    unzip && apt-get clean
+
+	
+#Download PHP-7.0.12 & build it.
+#RUN curl -o php-7.0.12.tar.gz	http://www.php.net/distributions/php-7.0.12.tar.gz	
+#RUN tar -xvzf php-7.0.12.tar.gz 
+
+RUN curl http://www.php.net/distributions/php-7.0.12.tar.gz | tar -xvz
+
+#RUN cd php-7.0.12 && ./buildconf --force && ./configure 
+
+#Either Install git / download zip (One can see other strategies : https://ryanfb.github.io/etc/2015/07/29/git_strategies_for_docker.html )
+
+#Get Source code instead of installing git we are trying to copy from zip
+
+RUN curl -sSL -o PHP-7.0-Linux.zip https://github.com/Microsoft/msphpsql/archive/PHP-7.0-Linux.zip
+
+RUN unzip PHP-7.0-Linux.zip -d /REPO/
+
+#Copy source code in EXT dir.
+#RUN ls /REPO/msphpsql-PHP-7.0-Linux/source/* 
+#RUN ls /php-7.0.12/ext/*
+RUN cp -r /REPO/msphpsql-PHP-7.0-Linux/source/* /php-7.0.12/ext/
+
+
+
+# In order to remove further error. 
+# E: The method driver /usr/lib/apt/methods/https could not be found.
+# E: Failed to fetch https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/dists/xenial/InRelease
+#RUN apt-get install apt-transport-https	
+	
+#install ODBC driver
+RUN echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/ xenial main" > /etc/apt/sources.list.d/mssqlpreview.list
+RUN apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
+RUN apt-get update
+RUN ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc-dev-utf16
+
+
+# Build actual driver.
+#RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared --with-pdo_sqlsrv=shared
+
+RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared
+RUN cd php-7.0.12 && make clean && make install 
+			
