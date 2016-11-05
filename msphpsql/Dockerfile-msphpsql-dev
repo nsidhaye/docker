@@ -1,7 +1,7 @@
 #Download base image ubuntu 16.04
 FROM ubuntu:16.04
 
-MAINTAINER Nikhil S
+MAINTAINER nsidhaye
 
 # Update Ubuntu Software repository
 RUN apt-get update && \
@@ -53,8 +53,8 @@ RUN ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc-dev-utf16
 
 
 # Build actual driver.
-#RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared --with-pdo_sqlsrv=shared
+RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared --with-pdo_sqlsrv=shared
+#RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared
 
-RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared
 RUN cd php-7.0.12 && make clean && make install 
 			
