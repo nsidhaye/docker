@@ -1,8 +1,8 @@
 msphpsql docker
 =====================
 
-[![Docker Pulls](https://img.shields.io/badge/docker%20pulls-03-blue.svg?maxAge=2592000)](https://hub.docker.com/r/nsidhaye/msphpsql-dev/)
+[![Docker Pulls](https://img.shields.io/badge/docker%20pulls-05-blue.svg?maxAge=2592000)](https://hub.docker.com/r/nsidhaye/msphpsql-dev/)
 
-Version | Type | Tags | Dockerfile
+ID | Type | Tags | Dockerfile
 --- | --- | --- | ---
-1.0|msphpsql-dev|| https://github.com/nsidhaye/docker/blob/master/msphpsql/Dockerfile-msphpsql-dev
+1.0|msphpsql-dev|v0.1| https://github.com/nsidhaye/docker/blob/master/msphpsql/Dockerfile-msphpsql-dev
