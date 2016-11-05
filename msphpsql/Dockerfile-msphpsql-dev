@@ -17,10 +17,11 @@ RUN apt-get update && \
 
 	
 #Download PHP-7.0.12 & build it.
-#RUN curl -o php-7.0.12.tar.gz	http://www.php.net/distributions/php-7.0.12.tar.gz	
-#RUN tar -xvzf php-7.0.12.tar.gz 
+RUN curl -o php-7.0.12.tar.gz	http://www.php.net/distributions/php-7.0.12.tar.gz	
+RUN tar -xvzf php-7.0.12.tar.gz 
 
-RUN curl http://www.php.net/distributions/php-7.0.12.tar.gz | tar -xvz
+# Found some times giving error like gzip: stdin: not in gzip format...
+#RUN curl http://www.php.net/distributions/php-7.0.12.tar.gz | tar -xvz
 
 #RUN cd php-7.0.12 && ./buildconf --force && ./configure 
 
