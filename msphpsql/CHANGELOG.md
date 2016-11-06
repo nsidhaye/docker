@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 ## [Unreleased]
 ### Added
 - Configure with config paths in configure option. 
-- 
+- Install php.ini 
 
 
 ## [0.1.0] - 2016-11-05
