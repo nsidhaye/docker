@@ -53,8 +53,29 @@ RUN ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc-dev-utf16
 
 
 # Build actual driver.
-RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared --with-pdo_sqlsrv=shared
+#RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared --with-pdo_sqlsrv=shared
 #RUN cd php-7.0.12 && ./buildconf --force && ./configure --enable-sqlsrv=shared
 
-RUN cd php-7.0.12 && make clean && make install 
+WORKDIR php-7.0.12
+
+./buildconf --force
+
+RUN ./configure --prefix=/usr          	 \
+            --sysconfdir=/etc            \
+            --localstatedir=/var         \
+            --datadir=/usr/share/php     \
+            --mandir=/usr/share/man      \
+            --enable-fpm                 \
+            --with-fpm-user=apache       \
+            --with-fpm-group=apache      \
+            --with-config-file-path=/etc \
+            --enable-calendar            \
+            --enable-ftp                 \
+            --with-gettext               \
+            --enable-mbstring            \
+			--enable-sqlsrv=shared 		 \
+			--with-pdo_sqlsrv=shared
+
+
+RUN make clean && make install 
 			
