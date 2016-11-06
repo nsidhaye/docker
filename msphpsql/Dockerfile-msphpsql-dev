@@ -5,15 +5,15 @@ MAINTAINER nsidhaye
 
 # Update Ubuntu Software repository
 RUN apt-get update && \
-    apt-get -y install \
+	apt-get -y install \
 	libxml2-dev \
 	gcc	\
 	g++ \
-    autoconf \
+	autoconf \
 	curl \
 	make \
 	apt-transport-https	 \
-    unzip && apt-get clean
+	unzip && apt-get clean
 
 	
 #Download PHP-7.0.12 & build it.
@@ -23,27 +23,15 @@ RUN tar -xvzf php-7.0.12.tar.gz
 # Found some times giving error like gzip: stdin: not in gzip format...
 #RUN curl http://www.php.net/distributions/php-7.0.12.tar.gz | tar -xvz
 
-#RUN cd php-7.0.12 && ./buildconf --force && ./configure 
-
 #Either Install git / download zip (One can see other strategies : https://ryanfb.github.io/etc/2015/07/29/git_strategies_for_docker.html )
-
-#Get Source code instead of installing git we are trying to copy from zip
+#Instead of installing git we are trying to get Source code from zip
 
 RUN curl -sSL -o PHP-7.0-Linux.zip https://github.com/Microsoft/msphpsql/archive/PHP-7.0-Linux.zip
 
 RUN unzip PHP-7.0-Linux.zip -d /REPO/
 
 #Copy source code in EXT dir.
-#RUN ls /REPO/msphpsql-PHP-7.0-Linux/source/* 
-#RUN ls /php-7.0.12/ext/*
 RUN cp -r /REPO/msphpsql-PHP-7.0-Linux/source/* /php-7.0.12/ext/
-
-
-
-# In order to remove further error. 
-# E: The method driver /usr/lib/apt/methods/https could not be found.
-# E: Failed to fetch https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/dists/xenial/InRelease
-#RUN apt-get install apt-transport-https	
 	
 #install ODBC driver
 RUN echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/ xenial main" > /etc/apt/sources.list.d/mssqlpreview.list
@@ -61,21 +49,20 @@ WORKDIR php-7.0.12
 ./buildconf --force
 
 RUN ./configure --prefix=/usr          	 \
-            --sysconfdir=/etc            \
-            --localstatedir=/var         \
-            --datadir=/usr/share/php     \
-            --mandir=/usr/share/man      \
-            --enable-fpm                 \
-            --with-fpm-user=apache       \
-            --with-fpm-group=apache      \
-            --with-config-file-path=/etc \
-            --enable-calendar            \
-            --enable-ftp                 \
-            --with-gettext               \
-            --enable-mbstring            \
+			--sysconfdir=/etc            \
+			--localstatedir=/var         \
+			--datadir=/usr/share/php     \
+			--mandir=/usr/share/man      \
+			--enable-fpm                 \
+			--with-fpm-user=apache       \
+			--with-fpm-group=apache      \
+			--with-config-file-path=/etc \
+			--enable-calendar            \
+			--enable-ftp                 \
+			--with-gettext               \
+			--enable-mbstring            \
 			--enable-sqlsrv=shared 		 \
 			--with-pdo_sqlsrv=shared
-
 
 RUN make clean && make install && install -v -m644 php.ini-production /etc/php.ini 
 
