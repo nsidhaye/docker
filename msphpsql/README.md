@@ -19,7 +19,7 @@ Example:
 
 ####**Details:**
 
-ID | Type | Tags | Dockerfile
---- | --- | --- | ---
-1.0|msphpsql-dev|0.1.0| https://github.com/nsidhaye/docker/blob/master/msphpsql/Dockerfile-msphpsql-dev
-2.0|msphpsql-dev|| https://github.com/nsidhaye/docker/blob/master/msphpsql/Dockerfile-msphpsql
+ID | Type | Tags | Dockerfile | Docker Build Status
+--- | --- | --- | --- | ---
+1.0|msphpsql-dev|0.1.0| https://github.com/nsidhaye/docker/blob/master/msphpsql/Dockerfile-msphpsql-dev | [![Docker Build](https://img.shields.io/badge/Build-Passing-green.svg?maxAge=2592000)](https://hub.docker.com/r/nsidhaye/msphpsql-dev/)
+2.0|msphpsql|| https://github.com/nsidhaye/docker/blob/master/msphpsql/Dockerfile-msphpsql | [![Docker Build](https://img.shields.io/badge/Build-Passing-green.svg?maxAge=2592000)](https://hub.docker.com/r/nsidhaye/msphpsql/)

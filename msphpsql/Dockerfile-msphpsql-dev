@@ -77,5 +77,6 @@ RUN ./configure --prefix=/usr          	 \
 			--with-pdo_sqlsrv=shared
 
 
-RUN make clean && make install 
-			
+RUN make clean && make install && install -v -m644 php.ini-production /etc/php.ini 
+
+
