@@ -14,7 +14,7 @@ RUN apt-get update && \
 	php7.0-odbc \
 	php7.0-mcrypt \
 	unzip \
-	pt-transport-https \
+	apt-transport-https \
 	autoconf && apt-get clean
 
 # In order to remove further error. 
