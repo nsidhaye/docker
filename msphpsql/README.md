@@ -7,15 +7,21 @@ msphpsql docker
 	docker run -it  nsidhaye/msphpsql
     docker run -it  nsidhaye/msphpsql-dev bash
 
-With attached your local directory to the docker.
+With attached your local directory to the docker with configured port.
 
 	docker run --rm -it -v {Your_DIR_PATH}:/data  nsidhaye/msphpsql
     docker run --rm -it -v {Your_DIR_PATH}:/data  nsidhaye/msphpsql-dev bash
+	
+	docker run -d -v {Your_DIR_PATH}:/data -p {Your_IP}:{Your_desired_port}:80  nsidhaye/msphpsql
 
 Example: 
 
 	docker run --rm -it -v C:/opt/Docker:/data  nsidhaye/msphpsql
     docker run --rm -it -v C:/opt/Docker:/data  nsidhaye/msphpsql-dev bash
+	
+	docker run -d -v C:/opt/Docker:/data -p 127.0.0.1:8080:80  nsidhaye/msphpsql
+	
+Validating: You can validate msphpsql libs status by visiting http://[Your_IP]:[docker_configured_port]/phpinfo.php
 
 ####**Details:**
 
