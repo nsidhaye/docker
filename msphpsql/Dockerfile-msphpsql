@@ -4,6 +4,7 @@ FROM ubuntu:16.04
 # Update Ubuntu Software repository
 RUN apt-get update && \
 	apt-get -y install \
+	php-pear	\
 	php7.0 \
 	php7.0-cgi \
 	php7.0-cli \
@@ -19,11 +20,11 @@ RUN apt-get update && \
 	libapache2-mod-php7.0	\
 	autoconf && apt-get clean
 
-	
+
+
 # Enable apache mods.
 RUN a2enmod php7.0
 RUN a2enmod rewrite
-
 
 #install ODBC driver
 RUN echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/mssql-ubuntu-xenial-release/ xenial main" > /etc/apt/sources.list.d/mssqlpreview.list
@@ -32,8 +33,14 @@ RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc-dev-utf16
 
 # Install msphpsql package...
-RUN curl -sSL -o PHP-7.0-Linux.zip https://github.com/Microsoft/msphpsql/archive/PHP-7.0-Linux.zip
+RUN pecl install sqlsrv
+RUN pecl install pdo_sqlsrv
 
-RUN unzip PHP-7.0-Linux.zip -d /REPO/
+
+#Update PHP.ini
+RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/apache2/php.ini
+RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/apache2/php.ini
+RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/cli/php.ini
+RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/cli/php.ini
 
 
