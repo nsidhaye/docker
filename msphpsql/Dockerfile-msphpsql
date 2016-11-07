@@ -33,8 +33,8 @@ RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc-dev-utf16
 
 # Install msphpsql package...
-RUN pecl install sqlsrv
-RUN pecl install pdo_sqlsrv
+RUN pecl install sqlsrv-4.0
+RUN pecl install pdo_sqlsrv-4.0
 
 
 #Update PHP.ini
@@ -42,5 +42,9 @@ RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/apache2/php
 RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/apache2/php.ini
 RUN echo "extension=/usr/lib/php/20151012/sqlsrv.so" >> /etc/php/7.0/cli/php.ini
 RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/cli/php.ini
+
+
+COPY /conf/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+COPY /test/testsql.php /var/www/html/
 
 EXPOSE 80
