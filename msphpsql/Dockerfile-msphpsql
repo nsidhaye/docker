@@ -33,8 +33,8 @@ RUN apt-get update
 RUN ACCEPT_EULA=Y apt-get install -y msodbcsql unixodbc-dev-utf16
 
 # Install msphpsql package...
-RUN pecl install sqlsrv-4.0
-RUN pecl install pdo_sqlsrv-4.0
+RUN pecl install sqlsrv-4.0.6
+RUN pecl install pdo_sqlsrv-4.0.6
 
 
 #Update PHP.ini
