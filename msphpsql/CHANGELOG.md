@@ -6,7 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 ## [TODO]
 - Add Apache for msphpsqldev
 
-## [Unreleased]
+
+## [0.2.0]
+### Changed
+- For *msphpsql* starting apachectl from ENTRYPOINT. So now onwards you can not execute any other command while starting docker. **msphpsql-dev** still on 0.1.0.
+
+## [0.1.1] - 2016-11-07
 ### Added
 - Configure with config paths in configure option. 
 - Install php.ini 
@@ -19,5 +24,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 - Build PHP 7.0.12
 - Install msodbcsql driver
 - Build msphpsql-PHP-7.0-Linux
+
 
 
