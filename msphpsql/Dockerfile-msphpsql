@@ -46,6 +46,7 @@ RUN echo "extension=/usr/lib/php/20151012/pdo_sqlsrv.so" >> /etc/php/7.0/cli/php
 
 COPY /conf/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 COPY /test/testsql.php /var/www/html/
+COPY /test/phpinfo.php /var/www/html/
 
 EXPOSE 80
 
