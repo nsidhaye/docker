@@ -13,15 +13,17 @@ RUN apt-get update && \
 	curl \
 	make \
 	apt-transport-https	 \
+	apache2	\
+	libapache2-mod-php7.0	\	
 	unzip && apt-get clean
 
 	
 #Download PHP-7.0.12 & build it.
 RUN curl -o php-7.0.12.tar.gz	http://www.php.net/distributions/php-7.0.12.tar.gz	
-RUN tar -xvzf php-7.0.12.tar.gz 
+RUN tar -xzf php-7.0.12.tar.gz 
 
 # Found some times giving error like gzip: stdin: not in gzip format...
-#RUN curl http://www.php.net/distributions/php-7.0.12.tar.gz | tar -xvz
+#RUN curl http://www.php.net/distributions/php-7.0.12.tar.gz | tar -xz
 
 #Either Install git / download zip (One can see other strategies : https://ryanfb.github.io/etc/2015/07/29/git_strategies_for_docker.html )
 #Instead of installing git we are trying to get Source code from zip
@@ -65,5 +67,23 @@ RUN ./configure --prefix=/usr          	 \
 			--with-pdo_sqlsrv=shared
 
 RUN make clean && make install && install -v -m644 php.ini-production /etc/php.ini 
+
+# Enable apache mods.
+RUN a2enmod php7.0
+RUN a2enmod rewrite
+
+# Apache Configuration
+COPY /conf/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+COPY /test/testsql.php /var/www/html/
+COPY /test/phpinfo.php /var/www/html/
+
+#Test...
+RUN ls -la /etc/php
+RUN ls -la /etc/php*
+
+EXPOSE 80
+
+
+
 
 
